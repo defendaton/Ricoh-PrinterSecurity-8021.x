@@ -1,0 +1,38 @@
+#!/usr/bin/expect -f
+
+set ip [lindex $argv 0];
+set PrinterUserName "<Enter username here>";
+set PrinterPassword "<Enter password here>";
+set 8021xUserName "<Enter username here>";
+set 8021xPassword "<Enter password here>";
+
+
+spawn telnet $ip
+expect "login:" 
+send "$PrinterUserName"
+send "\r"
+expect "Password:"
+send "$PrinterPassword\r"
+expect "msh>"
+send "8021x eap peap mschapv2\r"
+expect "msh>"
+send "8021x username \"$8021xUserName\"\r"
+expect "msh>"
+send "8021x username2 \"$8021xUserName\"\r"
+expect "msh>"
+send "8021x password \"$8021xPassword\"\r" 
+expect "msh>"
+send "8021x srvcert off\r"
+expect "msh>"
+send "8021x imca off\r"
+expect "msh>"
+send "etherauth 8021x on\r"
+expect "msh>"
+send "ssh genkey 2048\r"
+expect "msh>"
+
+send "logout\r"
+expect "Do you save configuration data? (yes/no/return) >"
+send "yes\r"
+sleep 5
+expect "Connection closed by foreign host."
