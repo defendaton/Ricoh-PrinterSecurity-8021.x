@@ -6,7 +6,7 @@
 
 Enables 802.1x eap peap mschapv2 on RICOH printers.
 By default the script uses the same username and password for all printers, which is not really recommended. 
-Once 802.1x is set printer will drop connection and reestablish connection again. 
+Once 802.1x is configured the printer will drop connection and reestablish connection again. 
 The script will await this and is single threaded. Thus if the connection cannot be reestablished the script does not continue automatically.
 
 Test before usage to ensure 802.1x is supported by your infrastructure.
